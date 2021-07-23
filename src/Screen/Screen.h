@@ -1,19 +1,18 @@
-#include <Gamebuino-Meta.h>
+#ifndef DEF_SCREEN
+#define DEF_SCREEN
+#include <Gamebuino-Meta.h>;
+#include "../Character/Character.h";
 
 class Screen {
-    private :
-    // Déclaration variable
-
-    int positionX = 22;
-    int positionY = 32;
-    int speedX = 1;
-    int speedY = 1;
-    int character_size = 4;
-
-    public : 
-
+    public :
     // Constructeur
     Screen();
 
-    void display();
+    // Méthodes
+    void display(Character character);
+
+    private :
+
+    // Argument
 };
+#endif

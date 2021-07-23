@@ -4,7 +4,10 @@ Screen::Screen() {
     // Constructeur
 }
 
-void Screen::display() {
+void Screen::display(Character character) {
     gb.display.setColor(BROWN);
-    gb.display.fillRect(positionX, positionY, character_size, character_size);
+    gb.display.fillRect(character.getPositionX(), 
+                        character.getPositionY(), 
+                        character.getCharacterSize(), 
+                        character.getCharacterSize());
 }
