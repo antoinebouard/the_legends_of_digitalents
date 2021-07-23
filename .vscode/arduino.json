@@ -1,0 +1,4 @@
+{
+    "board": "gamebuino:samd:gamebuino_meta_native",
+    "sketch": "the_legends_of_digitalents.ino"
+}
