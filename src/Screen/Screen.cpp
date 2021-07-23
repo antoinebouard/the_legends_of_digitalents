@@ -5,5 +5,6 @@ Screen::Screen() {
 }
 
 void Screen::display() {
-    gb.display.print("hey !");
+    gb.display.setColor(BROWN);
+    gb.display.fillRect(positionX, positionY, character_size, character_size);
 }
