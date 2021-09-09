@@ -13,7 +13,6 @@ void Screen::display(Character character, Character ennemy) {
     //                    character.getCharacterSize(), 
     //                    character.getCharacterSize());
     gb.display.drawImage(character.getPositionX(),character.getPositionY(),character.getImage());
-
     gb.display.setColor(RED);
     gb.display.fillRect(ennemy.getPositionX(), 
                         ennemy.getPositionY(), 
@@ -31,7 +30,7 @@ void Screen::display(Character character, Character ennemy) {
 }
 
 void Screen::gameOver(String victory, Character character, Character ennemy) {
-    gb.display.print(victory + " win !");
-    gb.display.print("Press start to replay !");
+    gb.display.println(victory);
+    gb.display.println("Press start to play!");
 }
 
