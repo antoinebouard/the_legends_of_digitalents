@@ -17,20 +17,20 @@ void Character::move() {
         positionX = positionX + speed;
     }
     if (gb.buttons.repeat(BUTTON_DOWN, 0)){
-        positionY = positionY - speed;
+        positionY = positionY + speed;
     }
     if (gb.buttons.repeat(BUTTON_UP, 0)){
         positionY = positionY - speed;    
     }  
     if (gb.buttons.pressed(BUTTON_RIGHT)) {
-    setImage(heroRight);
+    setImage(heroRightData);
     setDirection(1);
-    gb.display.drawImage(getPositionX(),getPositionY(),heroRight);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroRightData);
     }
     if (gb.buttons.pressed(BUTTON_LEFT)) {
-    setImage(heroLeft);
+    setImage(heroLeftData);
     setDirection(2);
-    gb.display.drawImage(getPositionX(),getPositionY(),heroLeft);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroLeftData);
     }          
     this->characterInScreen();
 }
@@ -40,17 +40,23 @@ void Character::attack(Character &character, Character &ennemy) {
         if (character.getDirection() == 2)
         {
            character.setImage(heroKicksLeft);
+           gb.display.fillCircle(character.getPositionX() - 2, character.getPositionY() + 10,2);
+            if (gb.collide.rectRect(character.getPositionX() - 2, character.getPositionY() + 10,2,2,
+                                    ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
+                ennemy.takeDamage(1);
+            }
         }
         if (character.getDirection() == 1)
         {
            character.setImage(heroKicksRight);
+            gb.display.fillCircle(character.getPositionX() + 16, character.getPositionY() + 10,2);
+            if (gb.collide.rectRect(character.getPositionX() + 16, character.getPositionY() + 10,2,2,
+                                    ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
+                ennemy.takeDamage(1);
+            }
         }
         
-        //gb.display.fillCircle(character.getPositionX() + 6, character.getPositionY() + 1,1);
-        if (gb.collide.rectRect(character.getPositionX() + 6, character.getPositionY() + 1,1,1,
-                                ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
-            ennemy.takeDamage(1);
-        }
+       
     }
     if (gb.buttons.pressed(BUTTON_B)) {
         gb.display.print("attaque distante");
@@ -60,9 +66,10 @@ void Character::attack(Character &character, Character &ennemy) {
 void Character::botAttack(Character &character, Character &ennemy) {
     gb.display.fillCircle(character.getPositionX() - 6, character.getPositionY() + 1,2);
     if (gb.collide.rectRect(character.getPositionX() - 6, character.getPositionY() + 1,2,2,
-                                ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
+                                    ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
         ennemy.takeDamage(7);
-     }
+    }
+    
 }
 
 void Character::takeDamage(int damage) {
@@ -77,9 +84,9 @@ void Character::collide(Character character, Character ennemy) {
     }
 }
 
-void Character::botMove(Character &character, Character &ennemy, int attack_timer) {
-    gb.display.print(rand() % 4);
-    if (attack_timer % 25 == 0) {
+void Character::botMove(Character &character, Character &ennemy, int &attack_timer) {
+    gb.display.print(attack_timer);
+    if (attack_timer % 10 == 0) {
         switch (rand() % 4) {
             case 0 :
                 botAttack(ennemy, character);
@@ -104,10 +111,10 @@ void Character::botMove(Character &character, Character &ennemy, int attack_time
 
 void Character::characterInScreen() {
     if(positionX + characterSize > gb.display.width()) {
-        positionX = gb.display.width() - 5;
+        positionX = gb.display.width() - 12.5;
     }
     if(positionY + characterSize > gb.display.height()){
-        positionY = gb.display.height() - 5;
+        positionY = gb.display.height() - 12.5;
     }
     if (positionY < 0) {
         positionY = 0;
