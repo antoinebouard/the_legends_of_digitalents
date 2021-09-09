@@ -9,7 +9,8 @@ class Screen {
     Screen();
 
     // Méthodes
-    void display(Character character);
+    void display(Character character, Character ennemy);
+    void gameOver(String victory, Character character, Character ennemy);
 
     private :
 
