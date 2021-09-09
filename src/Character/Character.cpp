@@ -1,21 +1,30 @@
 #include "Character.h";
 
 Character::Character() {
+            
 }
 
 void Character::move() {
     if (gb.buttons.repeat(BUTTON_LEFT, 0)){
-        positionX = positionX - speed;
+        positionX = positionX - speed;       
     }
     if (gb.buttons.repeat(BUTTON_RIGHT, 0)){
         positionX = positionX + speed;
     }
     if (gb.buttons.repeat(BUTTON_DOWN, 0)){
-        positionY = positionY + speed;
+        positionY = positionY - speed;
     }
     if (gb.buttons.repeat(BUTTON_UP, 0)){
-        positionY = positionY - speed;
-    }    
+        positionY = positionY + speed;
+    }  
+    if (gb.buttons.pressed(BUTTON_RIGHT)) {
+    setImage(heroRight);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroRight);
+    }
+    if (gb.buttons.pressed(BUTTON_LEFT)) {
+    setImage(heroLeft);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroLeft);
+    }  
 }
 
 // Getters & Setters
@@ -49,4 +58,11 @@ int Character::getCharacterSize() {
 
 void Character::setCharacterSize(int size) {
     this->characterSize = size;
+}
+
+Image Character::getImage(){
+    return this->image;
+}
+void Character::setImage(Image image){
+    this->image = image;
 }

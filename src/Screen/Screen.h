@@ -11,8 +11,6 @@ class Screen {
     // Méthodes
     void display(Character character);
 
-    private :
-
     // Argument
 };
 #endif

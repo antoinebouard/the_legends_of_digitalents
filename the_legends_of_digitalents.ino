@@ -13,5 +13,6 @@ void loop() {
     while(!gb.update());
     gb.display.clear();
     character.move();
-    screen.display(character);
+    screen.display(character); 
+     
 }
