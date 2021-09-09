@@ -22,19 +22,16 @@ void loop() {
         ennemy.botMove(character, ennemy, attack_timer);
         screen.display(character, ennemy);
     } else if (!character.isAlive()) {
-        screen.gameOver("Player 2", character, ennemy);
+        screen.gameOver("You lose ! HAHAHA   YOU'RE BAD !", character, ennemy);
         if (gb.buttons.pressed(BUTTON_MENU)){
-            gb.display.print("Bon bouton");
             character.reset();
             ennemy.reset();
         }
     } else if (!ennemy.isAlive()) {
-        screen.gameOver("Player 1", character, ennemy);
+        screen.gameOver("You win !", character, ennemy);
         if (gb.buttons.pressed(BUTTON_MENU)){
-            gb.display.print("Bon bouton");
             character.reset();
             ennemy.reset();
         }
     }
 }
-
