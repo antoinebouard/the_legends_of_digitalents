@@ -37,11 +37,16 @@ void Character::attack(Character &character, Character &ennemy) {
     }
 }
 
+void Character::botAttack(Character &character, Character &ennemy) {
+    gb.display.fillCircle(character.getPositionX() - 6, character.getPositionY() + 1,2);
+    if (gb.collide.rectRect(character.getPositionX() - 6, character.getPositionY() + 1,2,2,
+                                ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
+        ennemy.takeDamage(7);
+     }
+}
+
 void Character::takeDamage(int damage) {
-    gb.display.println(this->getLife());
-    this->setLife(this->getLife() - 1);
-    gb.display.println(damage);    
-    gb.display.println(this->getLife());
+    this->setLife(this->getLife() - damage);
 }
 
 void Character::collide(Character character, Character ennemy) {
@@ -52,11 +57,28 @@ void Character::collide(Character character, Character ennemy) {
     }
 }
 
-void Character::botMove(Character &character, Character &ennemy) {
-    attack(character, ennemy);
-    //positionX = positionX - speed;
-    //delay(1000);
-    //positionX = positionX + speed;
+void Character::botMove(Character &character, Character &ennemy, int attack_timer) {
+    gb.display.print(rand() % 4);
+    if (attack_timer % 25 == 0) {
+        switch (rand() % 4) {
+            case 0 :
+                botAttack(ennemy, character);
+                break;
+            case 1 :
+                positionX = positionX - speed;
+                break;
+            case 2 :
+                positionX = positionX + speed;
+                break;
+            case 3 :
+                positionY = positionY + speed;
+                break;
+            case 4 :
+                positionY = positionY - speed;
+                break;
+        }        
+        attack_timer = 0;
+    }
     this->characterInScreen();
 }
 
@@ -83,7 +105,6 @@ boolean Character::isAlive() {
 }
 
 void Character::reset() {
-    gb.display.print("reset");
     this->setLife(30);
     isAlive();
     positionX = basePositionX;

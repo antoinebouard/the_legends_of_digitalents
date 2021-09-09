@@ -21,8 +21,9 @@ class Character {
 
     void move();
     void collide(Character character, Character ennemy);
-    void botMove(Character &character, Character &ennemy);
+    void botMove(Character &character, Character &ennemy, int attack_timer);
     void attack(Character &character, Character &ennemy);
+    void botAttack(Character &character, Character &ennemy);
     void characterInScreen();
     void takeDamage(int damage);
     void reset();
