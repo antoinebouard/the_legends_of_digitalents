@@ -31,5 +31,8 @@ void Screen::display(Character character, Character ennemy) {
 
 void Screen::gameOver(String victory, Character character, Character ennemy) {
     gb.display.println(victory);
+    if(character.getLife() == 30) {
+        gb.display.println("You're good at this game ! You just become proplayer !");
+    }
     gb.display.println("Press start to play!");
 }

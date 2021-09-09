@@ -85,7 +85,6 @@ void Character::collide(Character character, Character ennemy) {
 }
 
 void Character::botMove(Character &character, Character &ennemy, int &attack_timer) {
-    gb.display.print(attack_timer);
     if (attack_timer % 10 == 0) {
         switch (rand() % 4) {
             case 0 :
