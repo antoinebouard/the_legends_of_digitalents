@@ -1,5 +1,6 @@
 #include "Character.h";
 
+
 Character::Character(int positionX, int positionY, int life) {
     this->setPositionX(positionX);
     this->setPositionY(positionY);
@@ -10,23 +11,42 @@ Character::Character(int positionX, int positionY, int life) {
 
 void Character::move() {
     if (gb.buttons.repeat(BUTTON_LEFT, 0)){
-        positionX = positionX - speed;
+        positionX = positionX - speed;       
     }
     if (gb.buttons.repeat(BUTTON_RIGHT, 0)){
         positionX = positionX + speed;
     }
     if (gb.buttons.repeat(BUTTON_DOWN, 0)){
-        positionY = positionY + speed;
+        positionY = positionY - speed;
     }
     if (gb.buttons.repeat(BUTTON_UP, 0)){
-        positionY = positionY - speed;
-    }        
+        positionY = positionY - speed;    
+    }  
+    if (gb.buttons.pressed(BUTTON_RIGHT)) {
+    setImage(heroRight);
+    setDirection(1);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroRight);
+    }
+    if (gb.buttons.pressed(BUTTON_LEFT)) {
+    setImage(heroLeft);
+    setDirection(2);
+    gb.display.drawImage(getPositionX(),getPositionY(),heroLeft);
+    }          
     this->characterInScreen();
 }
 
 void Character::attack(Character &character, Character &ennemy) {
     if (gb.buttons.pressed(BUTTON_A)) {
-        gb.display.fillCircle(character.getPositionX() + 6, character.getPositionY() + 1,1);
+        if (character.getDirection() == 2)
+        {
+           character.setImage(heroKicksLeft);
+        }
+        if (character.getDirection() == 1)
+        {
+           character.setImage(heroKicksRight);
+        }
+        
+        //gb.display.fillCircle(character.getPositionX() + 6, character.getPositionY() + 1,1);
         if (gb.collide.rectRect(character.getPositionX() + 6, character.getPositionY() + 1,1,1,
                                 ennemy.getPositionX(), ennemy.getPositionY(), ennemy.getCharacterSize(), ennemy.getCharacterSize())) {
             ennemy.takeDamage(1);
@@ -109,6 +129,7 @@ void Character::reset() {
     isAlive();
     positionX = basePositionX;
     positionY = basePositionY;
+
 }
 
 // Getters & Setters
@@ -160,10 +181,26 @@ void Character::setCharacterSize(int size) {
     this->characterSize = size;
 }
 
+
+Image Character::getImage(){
+    return this->image;
+}
+void Character::setImage(Image image){
+    this->image = image;
+}
+
 int Character::getLife() {
     return this->life;
 }
 
 void Character::setLife(int pLife) {
     this->life = pLife;
+}
+
+int Character::getDirection(){
+    return this->direction;
+}
+
+void Character::setDirection(int direction){
+    this->direction = direction;
 }

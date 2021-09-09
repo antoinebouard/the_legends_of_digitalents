@@ -12,8 +12,6 @@ class Screen {
     void display(Character character, Character ennemy);
     void gameOver(String victory, Character character, Character ennemy);
 
-    private :
-
     // Argument
 };
 #endif

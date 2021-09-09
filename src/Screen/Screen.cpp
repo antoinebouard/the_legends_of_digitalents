@@ -1,15 +1,19 @@
 #include "Screen.h";
+// Hero sprites
 
 Screen::Screen() {
     // Constructeur
 }
 
+
 void Screen::display(Character character, Character ennemy) {
-    gb.display.setColor(BROWN);
-    gb.display.fillRect(character.getPositionX(), 
-                        character.getPositionY(), 
-                        character.getCharacterSize(), 
-                        character.getCharacterSize());
+    //gb.display.setColor(BROWN);
+    //gb.display.fillRect(character.getPositionX(), 
+    //                    character.getPositionY(), 
+    //                    character.getCharacterSize(), 
+    //                    character.getCharacterSize());
+    gb.display.drawImage(character.getPositionX(),character.getPositionY(),character.getImage());
+
     gb.display.setColor(RED);
     gb.display.fillRect(ennemy.getPositionX(), 
                         ennemy.getPositionY(), 
@@ -30,3 +34,4 @@ void Screen::gameOver(String victory, Character character, Character ennemy) {
     gb.display.print(victory + " win !");
     gb.display.print("Press start to replay !");
 }
+
