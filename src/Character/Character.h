@@ -6,17 +6,27 @@ class Character {
     private :
     // Déclaration variable
 
-    int positionX = 22;
-    int positionY = 32;
+    int basePositionX;
+    int basePositionY;
+    int positionX;
+    int positionY;
     int speed = 2;
     int characterSize = 4;
+    int life;
 
     public : 
 
     // Constructeur
-    Character();
+    Character(int positionX, int positionY, int life);
 
     void move();
+    void collide(Character character, Character ennemy);
+    void botMove(Character &character, Character &ennemy);
+    void attack(Character &character, Character &ennemy);
+    void characterInScreen();
+    void takeDamage(int damage);
+    void reset();
+    boolean isAlive();
 
     // Getters & Setters
     int getPositionX();
@@ -25,10 +35,19 @@ class Character {
     int getPositionY();
     void setPositionY(int position);
 
+    int getBasePositionX();
+    void setBasePositionX(int position);
+
+    int getBasePositionY();
+    void setBasePositionY(int position);
+
     int getSpeed();
     void setSpeed(int speed);
 
     int getCharacterSize();
     void setCharacterSize(int size);
+
+    int getLife();
+    void setLife(int life);
 };
 #endif
